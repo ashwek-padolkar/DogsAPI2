@@ -97,7 +97,7 @@ const Carousel = () => {
         </div>
         <div
           className="slider-plate"
-          style={{ transform: `translateX(${-currentIndex * 435}px)` }}
+          style={{ transform: `translateX(${-currentIndex * 434.5}px)` }}
         >
           {isLoading ? (
             <p style={{ fontSize: "30px", marginLeft: "7px" }}>Loading...</p>
