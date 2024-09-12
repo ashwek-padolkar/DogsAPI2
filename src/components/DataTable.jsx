@@ -2,7 +2,6 @@ import { useGlobalContextPagination } from "../store/paginationStore";
 import DataItem from "./DataItem";
 import Pagination from "./Pagination";
 import { useEffect } from "react";
-import { DOG_API_KEY } from "../DOGS_API_KEY";
 
 const DataTable = () => {
   const { dataList, isLoading, currentPage, dispatchData } =
@@ -17,7 +16,7 @@ const DataTable = () => {
         }&limit=10`,
         {
           headers: {
-            "x-api-key": DOG_API_KEY,
+            "x-api-key": process.env.DOG_API_KEY,
           },
           signal,
         }
