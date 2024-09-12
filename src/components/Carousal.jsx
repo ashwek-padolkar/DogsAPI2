@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useGlobalContextCarousal } from "../store/carousalStore";
-import LazyImage from "./LazyImage";
 
 const Carousel = () => {
   const { dataList, isLoading, currentIndex, dispatchData } =
@@ -105,9 +104,10 @@ const Carousel = () => {
           ) : (
             dataList.map((item, index) => (
               <div className="slider-item" key={index}>
-                <LazyImage
+                <img
                   className="image"
                   src={item.url}
+                  style={{ width: "26rem", height: "53%" }}
                   alt={`Dog ${index + 1}`}
                 />
                 <div className="details">
