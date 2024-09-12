@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useReducer } from "react";
 
 // initial State
 const initialStatePagination = {
   currentPage: 1,
   isLoading: false,
   dataList: [],
+  dataCache: {}, // Add this to store data by page
 };
 
 // context creator
@@ -17,6 +18,10 @@ const paginationReducer = (state, action) => {
       return {
         ...state,
         dataList: action.payload.dataList,
+        dataCache: {
+          ...state.dataCache,
+          [action.payload.page]: action.payload.dataList, // Cache data by page
+        },
         isLoading: false,
       };
     case "SET_LOADING":

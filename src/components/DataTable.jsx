@@ -4,10 +4,23 @@ import Pagination from "./Pagination";
 import { useEffect } from "react";
 
 const DataTable = () => {
-  const { dataList, isLoading, currentPage, dispatchData } =
+  const { dataList, isLoading, currentPage, dispatchData, dataCache } =
     useGlobalContextPagination();
 
   const fetchDogsData = async (page, signal) => {
+    // Check if the data for this page is already in the cache
+    if (dataCache[page]) {
+      dispatchData({
+        type: "SET_DATA",
+        payload: {
+          dataList: dataCache[page],
+          page,
+        },
+      });
+      return;
+    }
+
+    // Fetch new data if not cached
     dispatchData({ type: "SET_LOADING" });
     try {
       const response = await fetch(
@@ -26,6 +39,7 @@ const DataTable = () => {
         type: "SET_DATA",
         payload: {
           dataList: data,
+          page, // Include the page number when caching
         },
       });
     } catch (error) {
@@ -42,13 +56,6 @@ const DataTable = () => {
     const controller = new AbortController();
     const { signal } = controller;
 
-    dispatchData({
-      type: "SET_DATA",
-      payload: {
-        dataList: [],
-      },
-    });
-
     fetchDogsData(currentPage, signal);
 
     return () => {
@@ -59,29 +66,36 @@ const DataTable = () => {
   return (
     <>
       <table style={{ height: "539.2px" }} className="table">
-        <tbody>
+        <>
+          <thead>
+            <tr>
+              <th style={{ width: "10rem" }}>Breed Name</th>
+              <th style={{ width: "15rem" }}>Bred For</th>
+              <th style={{ width: "10rem" }}>Breed Group</th>
+              <th style={{ width: "10rem" }}>Life Span</th>
+              <th style={{ width: "25rem" }}>Temperament</th>
+              <th style={{ width: "7rem" }}>Origin</th>
+            </tr>
+          </thead>
           {isLoading ? (
             <tr>
-              <td colSpan="6" style={{ textAlign: "center", fontSize: "30px" }}>
+              <td
+                style={{
+                  fontSize: "1.5rem",
+                  color: "gray",
+                }}
+              >
                 Loading...
               </td>
             </tr>
           ) : (
-            <>
-              <tr>
-                <th>Breed Name</th>
-                <th>Bred For</th>
-                <th style={{ width: "84px" }}>Breed Group</th>
-                <th>Life Span</th>
-                <th>Temperament</th>
-                <th>Origin</th>
-              </tr>
+            <tbody>
               {dataList.map((item) => (
                 <DataItem key={item.id} item={item} />
               ))}
-            </>
+            </tbody>
           )}
-        </tbody>
+        </>
       </table>
 
       <Pagination />

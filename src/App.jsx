@@ -1,20 +1,35 @@
-import { Link, Outlet } from "react-router-dom";
+import { useState } from "react";
+import DataTable from "./components/DataTable";
+import Carousel from "./components/Carousal";
 
 function App() {
+  const [tab, setTab] = useState("table");
+
   return (
     <>
       <nav>
         <h2 className="heading">Dog Breeds</h2>
         <ul>
           <li>
-            <Link to="/">Table</Link>
+            <button
+              onClick={() => setTab("table")}
+              className={tab === "table" ? "selected" : "not-selected"}
+            >
+              Table
+            </button>
           </li>
           <li>
-            <Link to="/carousal">Carousal</Link>
+            <button
+              onClick={() => setTab("carousel")}
+              className={tab === "carousel" ? "selected" : "not-selected"}
+            >
+              Carousel
+            </button>
           </li>
         </ul>
       </nav>
-      <Outlet />
+
+      {tab === "table" ? <DataTable /> : <Carousel />}
     </>
   );
 }

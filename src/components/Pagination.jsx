@@ -4,7 +4,7 @@ const Pagination = () => {
   const { currentPage, dispatchData } = useGlobalContextPagination();
 
   const handlePageChange = (page) => {
-    if (page >= 1) {
+    if (page >= 1 && page !== currentPage) {
       dispatchData({
         type: "SET_PAGE",
         payload: { currentPage: page },

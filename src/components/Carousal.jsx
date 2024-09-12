@@ -5,7 +5,7 @@ const Carousel = () => {
   const { dataList, isLoading, currentIndex, dispatchData } =
     useGlobalContextCarousal();
 
-  const fetchDogsData = async (signal) => {
+  const fetchDogsData = async (signal, append = false) => {
     dispatchData({ type: "SET_LOADING" });
     try {
       const response = await fetch(
@@ -18,12 +18,11 @@ const Carousel = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
 
       dispatchData({
         type: "SET_DATA",
         payload: {
-          dataList: data,
+          dataList: append ? [...dataList, ...data] : data,
         },
       });
     } catch (error) {
@@ -32,7 +31,6 @@ const Carousel = () => {
       } else {
         console.log("Error fetching data", error);
       }
-      // dispatchData({ type: "SET_LOADING" });
     }
   };
 
@@ -40,26 +38,14 @@ const Carousel = () => {
     const controller = new AbortController();
     const { signal } = controller;
 
-    dispatchData({
-      type: "SET_DATA",
-      payload: {
-        dataList: [],
-      },
-    });
-
-    dispatchData({
-      type: "SET_INDEX",
-      payload: {
-        currentIndex: 0,
-      },
-    });
-
-    fetchDogsData(signal);
+    if (dataList.length === 0) {
+      fetchDogsData(signal);
+    }
 
     return () => {
       controller.abort();
     };
-  }, [dispatchData]);
+  }, [dataList, dispatchData]);
 
   const handleMoveSlider = (n) => {
     let newIndex = currentIndex + n;
@@ -73,10 +59,18 @@ const Carousel = () => {
     });
   };
 
+  const handleLoadMore = () => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    // Fetch additional data and append to the list
+    fetchDogsData(signal, true);
+  };
+
   return (
     <div className="slider">
       <div className="slider-container">
-        <div className="desciption-bar">
+        <div className="description-bar">
           <div className="description">Everyday is a Dog Day</div>
           <div className="arrow-btn">
             <button
@@ -89,7 +83,7 @@ const Carousel = () => {
             <button
               className="next"
               onClick={() => handleMoveSlider(1)}
-              disabled={currentIndex >= dataList.length - 1}
+              disabled={currentIndex >= dataList.length - 2}
             >
               &#10095;
             </button>
@@ -97,32 +91,66 @@ const Carousel = () => {
         </div>
         <div
           className="slider-plate"
-          style={{ transform: `translateX(${-currentIndex * 434.5}px)` }}
+          style={{ transform: `translateX(${-currentIndex * 434}px)` }}
         >
-          {isLoading ? (
+          {isLoading && currentIndex === 0 ? (
             <p style={{ fontSize: "30px", marginLeft: "7px" }}>Loading...</p>
           ) : (
-            dataList.map((item, index) => (
-              <div className="slider-item" key={index}>
-                <img
-                  className="image"
-                  src={item.url}
-                  style={{ width: "26rem", height: "53%" }}
-                  alt={`Dog ${index + 1}`}
-                />
-                <div className="details">
-                  <div className="name">{item.breeds[0].name}</div>
-                  <div className="location">{item.breeds[0].origin || "-"}</div>
-                  <div className="life-span">{item.breeds[0].life_span}</div>
-                  <div className="temperament">
-                    {item.breeds[0].temperament}
+            <>
+              {dataList.map((item, index) => (
+                <div className="slider-item" key={index}>
+                  <img
+                    className="image"
+                    src={item.url}
+                    style={{ width: "26rem", height: "53%" }}
+                    alt={`Dog ${index + 1}`}
+                  />
+                  <div className="details">
+                    <div className="name">{item.breeds[0]?.name}</div>
+                    <div className="location">
+                      {item.breeds[0]?.origin || "-"}
+                    </div>
+                    <div className="life-span">{item.breeds[0]?.life_span}</div>
+                    <div className="temperament">
+                      {item.breeds[0]?.temperament}
+                    </div>
+                    <div className="bred-for">{item.breeds[0]?.bred_for}</div>
                   </div>
-                  <div className="bred-for">{item.breeds[0].bred_for}</div>
                 </div>
-              </div>
-            ))
+              ))}
+
+              {/* Render "Loading..." as a placeholder while fetching */}
+              {isLoading && (
+                <div className="slider-item loading-placeholder">
+                  <div
+                    style={{
+                      width: "26rem",
+                      height: "53%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      fontSize: "1.5rem",
+                      color: "gray",
+                    }}
+                  >
+                    Loading...
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
+      </div>
+      <div className="load-more-container">
+        <center>
+          <button
+            className="load-more"
+            onClick={handleLoadMore}
+            disabled={isLoading || currentIndex < dataList.length - 2}
+          >
+            Load More
+          </button>
+        </center>
       </div>
     </div>
   );
