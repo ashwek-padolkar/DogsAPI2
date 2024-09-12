@@ -16,7 +16,7 @@ const DataTable = () => {
         }&limit=10`,
         {
           headers: {
-            "x-api-key": process.env.DOG_API_KEY,
+            "x-api-key": import.meta.env.VITE_DOG_API_KEY,
           },
           signal,
         }
