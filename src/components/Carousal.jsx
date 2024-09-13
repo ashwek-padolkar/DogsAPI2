@@ -64,7 +64,6 @@ const Carousel = () => {
     const controller = new AbortController();
     const { signal } = controller;
 
-    // Fetch additional data and append to the list
     fetchDogsData(signal, true);
   };
 
