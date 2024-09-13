@@ -51,31 +51,28 @@ To get started with this project, follow the steps below:
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/ashwek-padolkar/DogsAPI2.git
-
-   ```
+```bash
+git clone https://github.com/ashwek-padolkar/DogsAPI2.git
+```
 
 2. To navigate to the project folder:
 
-  ```bash
-  cd DogsAPI2
+```bash
+   cd DogsAPI2
 
-  ```
+```
 
 3. Install the required dependencies:
 
-  ```bash
-  npm install
-
-  ```
+```bash
+npm install
+```
 
 4. Start the development server:
 
-  ```bash
-  npm run dev
-  
-  ```
+```bash
+npm run dev
+```
 
 ## Available Scripts
 
