@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useGlobalContextCarousal } from "../store/carousalStore";
+import { useContext, useEffect } from "react";
+import { CarousalContext } from "../store/carousalStore";
 
 const Carousel = () => {
-  const { dataList, isLoading, currentIndex, dispatchData } =
-    useGlobalContextCarousal();
+  const { state, dispatchData } = useContext(CarousalContext);
+  const { dataList, isLoading, currentIndex } = state;
 
   const fetchDogsData = async (signal, append = false) => {
     dispatchData({ type: "SET_LOADING" });
@@ -17,6 +17,7 @@ const Carousel = () => {
           signal,
         }
       );
+
       const data = await response.json();
 
       dispatchData({
@@ -45,7 +46,7 @@ const Carousel = () => {
     return () => {
       controller.abort();
     };
-  }, [dataList, dispatchData]);
+  }, [dataList]);
 
   const handleMoveSlider = (n) => {
     let newIndex = currentIndex + n;
@@ -119,7 +120,6 @@ const Carousel = () => {
                 </div>
               ))}
 
-              {/* Render "Loading..." as a placeholder while fetching */}
               {isLoading && (
                 <div className="slider-item loading-placeholder">
                   <div

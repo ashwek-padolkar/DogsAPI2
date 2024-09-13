@@ -1,0 +1,8 @@
+1. Context API with useReducer
+2. Abort controller for cancelling fetch request when unmounting
+
+Pagination
+1. Data store once fetched and previous pages are directly rendered without fetch.
+
+2. Carousal
+Further data fetches automatically when reaching to the second last card of 10 cards.

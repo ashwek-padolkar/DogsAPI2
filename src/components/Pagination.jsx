@@ -1,7 +1,9 @@
-import { useGlobalContextPagination } from "../store/paginationStore";
+import { useContext } from "react";
+import { PaginationContext } from "../store/paginationStore";
 
 const Pagination = () => {
-  const { currentPage, dispatchData } = useGlobalContextPagination();
+  const { state, dispatchData } = useContext(PaginationContext);
+  const { currentPage } = state;
 
   const handlePageChange = (page) => {
     if (page >= 1 && page !== currentPage) {

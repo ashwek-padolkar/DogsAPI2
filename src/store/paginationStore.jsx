@@ -1,26 +1,23 @@
-import React, { useContext, useReducer } from "react";
+import React, { useReducer } from "react";
 
-// initial State
 const initialStatePagination = {
   currentPage: 1,
   isLoading: false,
   dataList: [],
-  dataCache: {}, // Add this to store data by page
+  dataSave: {},
 };
 
-// context creator
 const PaginationContext = React.createContext();
 
-// reducer function
 const paginationReducer = (state, action) => {
   switch (action.type) {
     case "SET_DATA":
       return {
         ...state,
         dataList: action.payload.dataList,
-        dataCache: {
-          ...state.dataCache,
-          [action.payload.page]: action.payload.dataList, // Cache data by page
+        dataSave: {
+          ...state.dataSave,
+          [action.payload.page]: action.payload.dataList,
         },
         isLoading: false,
       };
@@ -40,7 +37,6 @@ const paginationReducer = (state, action) => {
   }
 };
 
-// provider
 const PaginationProvider = ({ children }) => {
   const [state, dispatchData] = useReducer(
     paginationReducer,
@@ -54,10 +50,4 @@ const PaginationProvider = ({ children }) => {
   );
 };
 
-// custom hook
-const useGlobalContextPagination = () => {
-  const { state, dispatchData } = useContext(PaginationContext);
-  return { ...state, dispatchData };
-};
-
-export { PaginationContext, PaginationProvider, useGlobalContextPagination };
+export { PaginationContext, PaginationProvider };

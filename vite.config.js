@@ -4,5 +4,5 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/DogsAPI2/", // Add this line
+  base: "/DogsAPI2/",
 });

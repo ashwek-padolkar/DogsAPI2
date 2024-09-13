@@ -1,16 +1,13 @@
-import React, { useContext, useReducer } from "react";
+import React, { useReducer } from "react";
 
-// initial State
 const initialStateCarousal = {
   currentIndex: 0,
   isLoading: false,
   dataList: [],
 };
 
-// creator
 const CarousalContext = React.createContext();
 
-// reducer function
 const carousalReducer = (state, action) => {
   switch (action.type) {
     case "SET_DATA":
@@ -34,7 +31,6 @@ const carousalReducer = (state, action) => {
   }
 };
 
-// provider
 const CarousalProvider = ({ children }) => {
   const [state, dispatchData] = useReducer(
     carousalReducer,
@@ -48,10 +44,4 @@ const CarousalProvider = ({ children }) => {
   );
 };
 
-// custom hook
-const useGlobalContextCarousal = () => {
-  const { state, dispatchData } = useContext(CarousalContext);
-  return { ...state, dispatchData };
-};
-
-export { CarousalContext, CarousalProvider, useGlobalContextCarousal };
+export { CarousalContext, CarousalProvider };
