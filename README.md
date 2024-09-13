@@ -49,8 +49,7 @@ git clone https://github.com/ashwek-padolkar/DogsAPI2.git
 2. To navigate to the project folder:
 
 ```bash
-   cd DogsAPI2
-
+cd DogsAPI2
 ```
 
 3. Install the required dependencies:
