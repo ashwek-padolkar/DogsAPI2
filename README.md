@@ -45,21 +45,6 @@ This project utilizes React's useReducer for managing state in both the Paginati
 4. Responsive Layout:
    The UI is designed to adapt to different screen sizes and resolutions, offering an optimal user experience across devices.
 
-## Table of Contents
-
-- [Features](#features)
-- [Installation](#installation)
-- [Available Scripts](#available-scripts)
-- [Technologies Used](#technologies-used)
-- [Project Structure](#project-structure)
-- [Components](#components)
-  - [App](#app)
-  - [DataTable](#datatable)
-  - [Pagination](#pagination)
-  - [Carousel](#carousel)
-  - [State Management](#state-management)
-- [API Details](#api-details)
-
 ## Installation
 
 To get started with this project, follow the steps below:
@@ -73,21 +58,24 @@ To get started with this project, follow the steps below:
 
 2. To navigate to the project folder:
 
-```bash
-cd DogsAPI2
-```
+  ```bash
+  cd DogsAPI2
+
+  ```
 
 3. Install the required dependencies:
 
-```bash
-npm install
-```
+  ```bash
+  npm install
+
+  ```
 
 4. Start the development server:
 
-```bash
-npm run dev
-```
+  ```bash
+  npm run dev
+  
+  ```
 
 ## Available Scripts
 
