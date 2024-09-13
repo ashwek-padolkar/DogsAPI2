@@ -1,12 +1,3 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
 # Dog Breeds Data Table and Carousel Application
 
 This application demonstrates Front-End development expertise by presenting data in two distinct formats: a **Data Table** and an **Interactive Carousel**. The application fetches data from The Dog API to display a list of dog breeds in both a table and a carousel view. Users can toggle between these views using buttons in the navigation bar. The table view supports pagination, while the carousel offers image sliding and additional data loading functionality.
