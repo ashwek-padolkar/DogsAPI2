@@ -86,11 +86,6 @@ nav .not-selected:hover {
   transform: translate(-50%, -50%);
 }
 
-thead tr{
-  color: #fff;
-  background: #34AF6D;
-}
-
 th {
   padding: 5px 10px;
   height: 30px;
