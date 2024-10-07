@@ -125,13 +125,18 @@ tbody tr{
   justify-content: end;
 }
 
+.controls {
+  width: 274px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
 .arrow-button {
   background: none;
   color: rgb(104, 106, 107);
   border: none;
-  font-size: 14px;
+  font-size: 18px;
   cursor: pointer;
-  padding: 0 10px;
 }
 
 .arrow-button:disabled {
@@ -142,10 +147,20 @@ tbody tr{
   background: none;
   color: rgb(104, 106, 107);
   border: none;
-  font-size: 11px;
-  padding: 4px 8px;
+  font-size: 13px;
   cursor: pointer;
   margin: 0px 10px;
+}
+
+.page-number:hover {
+  background-color: rgba(225,225,230,255);
+  color: rgb(0, 0, 0);
+  border-radius: 50%;
+}
+
+.page-number:disabled:hover {
+  background-color: transparent;
+  color: rgb(104, 106, 107);
 }
 
 .current {
